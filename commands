@@ -1,0 +1,160 @@
+#!/bin/bash
+
+# source directory that contains commands
+readonly srcdir="/home/saief1999/Documents/commands"
+readonly src="$srcdir/commands.txt"
+readonly modulesuffix="_commands.txt"
+
+function check_params() {
+	if [[ $1 -ne $2 ]]; then
+		echo "Illegal number of parameters"
+		exit
+	fi
+}
+
+# shows help for user
+function help_usage() {
+cat << EOF
+Stores commands for you to remember :)
+Syntax: commands [OPTION] [name] [description]
+
+    Options:
+     -lm , --list-modules    	lists modules.
+     -mtm, --move-to-module	moves a command to another module.
+     -a  , --add             	add new command.
+     -u  , --update          	update existing command description.
+     -un , --update-name     	update existing command name.
+     -r  , --remove          	remove command.
+     -s  , --source          	show .txt file location.
+     -h  , --help            	print help.
+EOF
+}
+
+# shows commands source file
+function show_source() {
+	echo "$src"
+}
+
+# add new command
+function add_command() {
+	check_params $# 2
+	if [ -z "$3" ]
+	then
+		module="default"
+	else
+		module="$3"
+	fi
+
+	name="$1"
+	description="$2"
+	srcmodule="$module"
+	grep -q "^$name=.*$" "$src"
+	if [[ $? = 0 ]]; then 
+		echo -e "\033[01;31m"Command Name Already Exists!"\033[00m"
+	elif [[ $? = 1 ]]; then 
+		echo "$name=$description">>"$src" && echo -e "\033[01;34m"Command Added"\033[00m"
+	fi
+}
+
+# update an existing command description
+function update_command() {
+	check_params $# 2
+
+	name="$1"
+	description="$2"
+	grep -q "^$name=.*$" "$src"
+	if [[ $? = 0 ]]; then 
+		sed -ri "s/^${name//\//\\/}=.*$/${name//\//\\/}=$description/" "$src" && echo -e "\033[01;34m"Command Updated"\033[00m"
+	elif [[ $? = 1 ]]; then 
+		echo -e "\033[01;31m"Command Name Not Found!"\033[00m"
+	fi
+}
+
+# update a command name
+function update_name() {
+	check_params $# 2
+
+	name="$1"
+	new_name="$2"
+	grep -q "^$name=.*$" "$src"
+	if [[ $? = 0 ]]; then 
+		sed -ri "s/^${name//\//\\/}=(.*)$/${new_name//\//\\/}=\1/" "$src" && echo -e "\033[01;34m"Command Name Updated"\033[00m"
+	elif [[ $? = 1 ]]; then 
+		echo -e "\033[01;31m"Command Name Not Found!"\033[00m"
+	fi
+}
+
+# remove a command 
+function remove_command() {
+	check_params $# 1
+
+	name="$1"
+	grep -q "^$name=.*$" "$src"
+	
+	if [[ $? = 0 ]]; then 
+		sed -ri "/^$name=.*$/d" "$src"
+		echo -e "\033[01;34m"Command Removed"\033[00m"
+	elif [[ $? = 1 ]]; then 
+		echo -e "\033[01;31m"Command Name Not Found!"\033[00m"
+	fi
+}
+
+# show existing commands
+function show_commands() {
+	while read p; do
+		name=$(cut -d"=" -f1 <<< "$p") 
+		description=$(cut -d"=" -f2 <<< "$p")
+			
+		printf "\033[01;34m%-40s\033[00m %s\n" "$name" "$description"
+	done <"$src"
+}
+
+# lists  modules
+function list_modules() {
+	modules=$(find . -type f -name "*$modulesuffix" -printf '%f\n'| cut -d"_" -f1)
+	echo "$modules"	
+}
+
+# Main Program
+function main() {
+	if [ -z "$1" ] 
+	then
+		show_commands		
+	else
+	param="$1"
+	shift
+	case $param in
+		-lm|--list-modules)
+			list_modules "$@"
+			;;
+		-mtm|--move-to-module)
+			move_to_module "$@"
+			;;
+		-a|--add)
+			add_command "$@"
+			;;
+		-u|--update) 
+			update_command "$@"
+			;;
+		-un|--update-name) 
+			update_name "$@"
+			;;
+		-r|--remove)
+			remove_command "$@"
+			;;
+		-s|--source)
+			show_source
+			;;
+		-h|--help)
+			help_usage
+			;;
+		*)
+			"Invalid parameter was provided: $param"
+	esac
+	fi
+}
+
+
+
+#Calling Main
+main "$@"
