@@ -1,0 +1,51 @@
+#!/bin/bash
+
+readonly srcdir="$HOME/Documents/commands"
+readonly src="$srcdir/open.txt" # Contains the names of the different commands, separated by spaces.
+readonly commands_array=$(cat "$src") 
+function help_usage() {
+cat << EOF
+Opens certain projects
+Syntax: open [OPTION] [name]
+    options:
+     -l , --list             list available names.
+EOF
+}
+
+function list_available() {
+	for element in $commands_array; do		
+		printf "%s\n" "$element"
+	done
+}
+
+# Main Program
+function main() {
+	if [ -z "$1" ] 
+	then
+		help_usage		
+	else
+	param="$1"
+	shift
+	case $param in
+		myimage)
+			xdg-open path/to/image.jpg
+			;;
+		myproject)
+			code /path/to/project
+			;;
+		-l|--list)
+			list_available
+			;;
+		-h|--help)
+			help_usage
+			;;
+		*)
+			echo "Invalid parameter was provided: $param"
+	esac
+	fi
+}
+
+
+
+#Calling Main
+main "$@"
