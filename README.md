@@ -12,7 +12,7 @@ This repository contains a few scripts that I use generally when running my desk
 
 ### CLI
 
-- `yay` : An AUR helper using in Arch & Arch based distros. Helps building/updating AUR packages .
+- `yay` : An AUR helper used in Arch & Arch based distros. Helps building/updating AUR packages .
   - Syntax very similar to `pacman`, the default package manager for arch systems.
   - Handles conflicts & issues in a much better way than `pamac` (from personal experience).
 
@@ -28,7 +28,7 @@ This repository contains a few scripts that I use generally when running my desk
 
 - `translate-shell` : Translate text directly from the CLI
   - Uses `google translate` by default, but can use other backends to translate with.
-  - also support TTS (Text To Speach).
+  - also supports TTS (Text To Speach).
 
 - `direnv` : Separate the environment of different projects.
   - a simple `cd` into the project will load its `.envrc` containing all its env variables.
@@ -88,7 +88,7 @@ I use this to open projects I work on daily, or files that I check regularly.
 
 Check the `open` script for an example of usage.
 
-It's also important to add the `open-completion` script to `~/system/init` like this 
+It's also important to add the `open-completion` script to `~/system/init` like this, to enable completion for command names.
 
 ```bash
 source path/to/open-completion
@@ -109,7 +109,7 @@ for more info, check : https://wiki.archlinux.org/title/PC_speaker
 
 ### Copying directly from the terminal
 
-For that I use the `xclip` package describe above.
+For that I use the `xclip` package described above.
 
 I add this alias to `~/system/init`
 
