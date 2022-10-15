@@ -1,6 +1,6 @@
 #!/bin/bash
 
 # This is used to enable the <TAB> auto-complete functionality
-readonly src="/home/saief1999/Documents/commands/open.txt"
+readonly src="$HOME/Documents/commands/open.txt"
 readonly wordlist=$(cat "$src")
 complete -W "$wordlist" open
