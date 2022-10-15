@@ -65,9 +65,9 @@ This repository contains a few scripts that I use generally when running my desk
   - Much better than `Postman` ( which separates offline and online workspaces... )
 
 - `Datagrip` : Useful to manage SQL databases from a unified frontend
-  - If we have no access to jetbrains products.
 
 - `beekeeper-studio` : An alternative to `Datagrip`
+  - If we have no access to jetbrains products. We can use this instead.
 
 - `VScode` : No introductions necessary
 
