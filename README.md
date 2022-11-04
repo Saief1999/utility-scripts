@@ -30,6 +30,10 @@ This repository contains a few scripts that I use generally when running my desk
   - Uses `google translate` by default, but can use other backends to translate with.
   - also supports TTS (Text To Speach).
 
+- `dict` : An implementation of the DICT protocol. a CLI dictionary protocol.
+
+- `peek` : Used to create gifs
+
 - `direnv` : Separate the environment of different projects.
   - a simple `cd` into the project will load its `.envrc` containing all its env variables.
   - using a `cd` out of the project will unload all its env variables.
