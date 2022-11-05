@@ -1,0 +1,12 @@
+aws-session-manager-plugin
+azure-cli
+datagrip
+drawio-desktop
+ganache-bin
+insomnia-bin
+intellij-idea-ultimate-edition
+nordvpn-bin
+slack-desktop
+spotify
+stremio
+visual-studio-code-bin

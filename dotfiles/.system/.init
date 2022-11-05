@@ -1,0 +1,19 @@
+#!/etc/bash
+
+### We need to "source ~/.system/.sysinit after copying this file
+# Custom Scripts
+
+alias cat='bat -pp'
+export SHEETS=~/Documents/tuts/CheatSheets
+PATH=$PATH:~/Documents/commands
+source ~/Documents/commands/open-completion
+export INSAT=~/Documents/gl5/sem1
+alias xclip='xclip -selection clipboard'
+export AUTHORY=~/Documents/authory
+eval "$(direnv hook bash)" # Hook Direnv to bash sessions
+xset -b # Remove the annoying bell sound
+export AUR_USERNAME=saief1999
+
+# System Custom scripts
+
+export SYSTEMD_EDITOR=vim
