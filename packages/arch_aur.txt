@@ -6,7 +6,9 @@ ganache-bin
 insomnia-bin
 intellij-idea-ultimate-edition
 nordvpn-bin
+onlyoffice-bin
 slack-desktop
 spotify
 stremio
+ventoy-bin
 visual-studio-code-bin

@@ -1,7 +1,7 @@
-base-devel
 ansible
 aws-cli-v2
 bat
+btop
 calibre
 deluge-gtk
 dictd
@@ -30,7 +30,6 @@ nethogs
 nodejs
 obs-studio
 obsidian
-onlyoffice-desktopeditors
 pandoc
 pantheon-camera
 peek
@@ -46,13 +45,8 @@ texlive-fontsextra
 texlive-bibtexextra
 tldr
 translate-shell
-ventoy
-vim
 virtualbox
 vlc
-wine-staging
-winetricks
 xclip
 yarn
-yay
 yt-dlp
