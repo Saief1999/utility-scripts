@@ -35,6 +35,7 @@ pantheon-camera
 peek
 prometheus
 prometheus-node-exporter
+redshift
 rsync
 speedtest-cli
 steam

@@ -79,9 +79,9 @@ This repository contains a few scripts that I use generally when running my desk
 
 These are the personal conventions I use when I first set up any linux system.
 
-- `~/system/init` : I use this file to store my aliases & Env variables. It's included in `~/.bashrc`.
+- `~/.system/.init` : I use this file to store my aliases & Env variables. It's included in `~/.bashrc`.
 
-- Regular usage directories need to have their own env variables, then exported in `~/system/init`
+- Regular usage directories need to have their own env variables, then exported in `~/.system/.init`
 
 
 ### Shortcuts To daily projects
@@ -92,7 +92,7 @@ I use this to open projects I work on daily, or files that I check regularly.
 
 Check the `open` script for an example of usage.
 
-It's also important to add the `open-completion` script to `~/system/init` like this, to enable completion for command names.
+It's also important to add the `open-completion` script to `~/.system/.init` like this, to enable completion for command names.
 
 ```bash
 source path/to/open-completion
@@ -115,7 +115,7 @@ for more info, check : https://wiki.archlinux.org/title/PC_speaker
 
 For that I use the `xclip` package described above.
 
-I add this alias to `~/system/init`
+I add this alias to `~/.system/.init`
 
 ```bash
 alias xclip='xclip -selection clipboard'
@@ -129,7 +129,7 @@ echo "Stuff to copy" | xclip
 
 ### Supporting Syntax highlighting in cat
 
-for that I use the `bat` package described above, with this alias in `~/system/init`
+for that I use the `bat` package described above, with this alias in `~/.system/.init`
 
 ```bash
 alias cat='bat -pp'
