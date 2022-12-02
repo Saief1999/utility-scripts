@@ -9,6 +9,7 @@ direnv
 discord
 docker
 docker-compose
+engrampa
 firefox-developer-edition
 freerdp
 gcolor2
@@ -47,6 +48,7 @@ texlive-bibtexextra
 tldr
 translate-shell
 virtualbox
+virtualbox-host-modules-arch
 vlc
 xclip
 yarn

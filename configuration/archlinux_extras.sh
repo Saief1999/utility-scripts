@@ -33,6 +33,9 @@ yay -S pulseaudio pavucontrol alsa-firmware alsa-utils
 # Install volman to auto mount disks with thunar ( also adds trash functionality ) -> needs reboot after installing
 yay -S thunar-volman gvfs
 
+# Install Archive utility for XFCE ( to Archive/Compress from thunar )
+yay -S thunar-archive-plugin
+ 
 # Install fonts ( Afterwards, change fonts to noto sans regular both in window manager and appearance ) 
 yay -S ttf-dejavu ttf-liberation noto-fonts
 sudo ln -s /etc/fonts/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d
