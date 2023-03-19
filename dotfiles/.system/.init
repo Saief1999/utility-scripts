@@ -15,5 +15,7 @@ xset -b # Remove the annoying bell sound
 export AUR_USERNAME=saief1999
 
 # System Custom scripts
-
 export SYSTEMD_EDITOR=vim
+# Show images in the kitty terminal
+alias icat="kitty +kitten icat"
+

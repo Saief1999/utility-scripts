@@ -1,0 +1,9 @@
+mount image.iso /media/iso -o loop=Mounts ISO
+df=Shows information about file system
+# umount gdrive:=Unmounts Google Drive Account
+rclone mount --daemon gdrive: ~/gdrive=Mount my Google Drive Account
+rsync --progress src dest=Copies src to dest with progress
+# cryptsetup luksOpen vaultfile.img myvault=Decrypt volume to /dev/mapper/myvault
+# mount /dev/mapper/myvault /myvault=Mount the Vault to /myvault
+# umount /myvault=Unmount the Vault
+# cryptsetup close myvault=Close the Vault

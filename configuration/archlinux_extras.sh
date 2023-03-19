@@ -13,6 +13,9 @@ cd yay
 makepkg -si
 rm -r $script_dir/yay
 
+# Install kitty Terminal
+yay -S kitty
+
 # Create default directories for user
 yay -S xdg-user-dirs 
 xdg-user-dirs-update
@@ -37,7 +40,9 @@ yay -S thunar-volman gvfs
 yay -S thunar-archive-plugin
  
 # Install fonts ( Afterwards, change fonts to noto sans regular both in window manager and appearance ) 
-yay -S ttf-dejavu ttf-liberation noto-fonts
+yay -S ttf-dejavu ttf-liberation noto-fonts ttf-caladea ttf-carlito ttf-opensans ttf-impallari-cantora otf-overpass ttf-roboto tex-gyre-fonts ttf-ubuntu-font-family ttf-courier-prime ttf-gelasio-ib ttf-merriweather ttf-source-sans-pro-ibx ttf-signika nerd-fonts-noto-sans-regular-complete
+
+
 sudo ln -s /etc/fonts/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d
 
 # Install necessary AUR packages

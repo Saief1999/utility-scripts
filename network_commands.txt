@@ -1,0 +1,11 @@
+lsof -ti tcp:8000=Find process using port 8000
+nordvpn set protocol TCP=Change Nordvpn into TCP mode
+bluetoothctl=Start bluetooth utility
+nethogs=Monitor network
+systemctl restart NetworkManager=Restart Network Manger
+# wondershaper -a wlo1 -d 4096=Limit adapter speed to 4 MB
+# wondershaper -a wlo1 -c=Clear adapter limit
+hostname -I=Shows current Ip
+# netdiscover -i wlo1=Discover Hosts on Local Network
+curl portquiz.net:80=Test if port 80 is open
+nmcli device wifi show=Show Wifi Info

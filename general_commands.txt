@@ -1,0 +1,17 @@
+xdg-open=Open File Manager
+open=Open a project
+mousepad=Open Text Editor
+marker=Open Markdown Text Editor
+vi=Open Vi (No Arrows)
+vim=Open Vi (With Arrows)
+/opt/lampp/bin/mysql -u root=Open MySQL CLI
+mimeopen -d file=Changes the default application reader
+faillock --user username --reset=Resets attempts lock
+setxkbmap fr=Sets Keyboard layout to fr
+binwalk --signature --term file.bin=Reverse engineer binary
+glances=Show full System Monitor
+btop=Show better System Monitor
+task=Open Tasks List
+archlinux-java=Change Java Version
+info=Generic info for command
+man=Manual for command

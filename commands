@@ -2,57 +2,224 @@
 
 # source directory that contains commands
 readonly srcdir="/home/saief1999/Documents/commands"
-readonly src="$srcdir/commands.txt"
 readonly modulesuffix="_commands.txt"
 
+readonly commands_color="BLUE"
+# The number of terminal cols
+num_terminal_cols=$(tput cols)
+# The minimum number of cols to separate the command from its description
+readonly min_cols_separator=6
+# Padding inside the card
+readonly internal_horizontal_card_padding_length=2
+readonly internal_top_card_padding_length=1
+readonly internal_bottom_card_padding_length=1
+
+#Default module name
+readonly default_module="general"
+
+# Used by show_module later on
+declare -A global_names=()
+declare -A global_descriptions=()
+declare -A global_lengths=()
+
+########################### Coloring #########################################
+
+# Convert a 6-digit hexadecimal color code to an RGB value
+function hex_to_rgb() {
+  local hex="$1"
+  local r=$((0x${hex:0:2}))
+  local g=$((0x${hex:2:2}))
+  local b=$((0x${hex:4:2}))
+  printf "%d;%d;%d" "$r" "$g" "$b"
+}
+
+# Function to generate and cache ANSI escape sequences
+function get_color_code() {
+	local bg_color="$1"
+	local fg_color="$2"
+	local bold="$3"
+
+	# Generate the ANSI escape sequence and cache it
+	local bg_rgb
+	local fg_rgb
+	bg_rgb=$(hex_to_rgb "$bg_color")
+	fg_rgb=$(hex_to_rgb "$fg_color")
+
+	# Background not bold ";0m" but Foreground depends on the passed param.
+	local escape_sequence="\e[48;2;$bg_rgb""m\e[38;2;$fg_rgb"
+	if [[ "$bold" -eq 1 ]]; then
+		escape_sequence+=";1"
+	fi
+	escape_sequence+="m"
+	# color_cache["$bg_color:$fg_color:$bold"]="$escape_sequence"
+	echo -ne "$escape_sequence"
+}
+
+
+declare header_colors=(
+	"6791C9" # Blue
+	"EE6A70" # Red
+	"E89982" # Orange
+	"81C19B" # Green
+	"70B8CA" # Light blue
+	"ECD28B" # Yellow
+	"C58CEC" # Purple
+	"EDEFF0" # White
+)
+
+# Define a global associative array to cache ANSI escape sequences
+# FG_RGB:BG_RGB:BOLD_OR_NOT -> ANSI ESCAPE CODE
+declare -A color_cache=(
+	# Headers
+	["6791C9:000000:1"]="$(get_color_code '6791C9' '000000' '1')"
+	["EE6A70:000000:1"]="$(get_color_code 'EE6A70' '000000' '1')"
+	["E89982:000000:1"]="$(get_color_code 'E89982' '000000' '1')"
+	["81C19B:000000:1"]="$(get_color_code '81C19B' '000000' '1')"
+	["70B8CA:000000:1"]="$(get_color_code '70B8CA' '000000' '1')"
+	["ECD28B:000000:1"]="$(get_color_code 'ECD28B' '000000' '1')"
+	["C58CEC:000000:1"]="$(get_color_code 'C58CEC' '000000' '1')"
+	["EDEFF0:000000:1"]="$(get_color_code 'EDEFF0' '000000' '1')"
+
+	# Card content
+	["141617:FFFFFF:0"]="$(get_color_code '141617' 'FFFFFF' '0')"
+
+	# Generic
+	["000000:FFFFFF:1"]="$(get_color_code '000000' 'FFFFFF' '1')"
+	["000000:FFFFFF:0"]="$(get_color_code '000000' 'FFFFFF' '0')"
+
+
+)
+
+# Function to show text in a specified color
+function show_text_in_cached_color() {
+  local string="$1"
+  local bg_color="${2:-000000}"
+  local fg_color="${3:-FFFFFF}"
+  local bold="${4:-0}"
+  
+  # Get the ANSI escape sequence for the specified color
+  local color_code
+  color_code=${color_cache[$bg_color:$fg_color:$bold]}
+  # Print the colored text and reset the color
+  printf "$color_code%s\e[0m" "$string"
+}
+
+function show_card_header() {
+	check_params $# 2
+	local header_text="$1"
+	local header_color="$2"
+	show_text_in_cached_color "$header_text" "$header_color" "000000" 1
+}
+
+function show_card_content() {
+	check_params $# 1
+	show_text_in_cached_color "$1" "141617" "FFFFFF" 0
+}
+# Colors setup
+declare -A colors=( 
+	["RESET"]="\033[0m" 
+	["BLACK"]="\033[30m"
+	["RED"]="\033[31m"
+	["GREEN"]="\033[32m"
+	["YELLOW"]="\033[33m"
+	["BLUE"]="\033[34m"
+	["MAGENTA"]="\033[35m"
+	["CYAN"]="\033[36m"
+	["WHITE"]="\033[37m"
+	["BOLDBLACK"]="\033[1m\033[30m"
+	["BOLDRED"]="\033[1m\033[31m"
+	["BOLDGREEN"]="\033[1m\033[32m"
+	["BOLDYELLOW"]="\033[1m\033[33m"
+	["BOLDBLUE"]="\033[1m\033[34m"
+	["BOLDMAGENTA"]="\033[1m\033[35m"
+	["BOLDCYAN"]="\033[1m\033[36m"
+	["BOLDWHITE"]="\033[1m\033[37m"
+)
+
+# Checks the minimum number of params that need to be passed for a function to work
 function check_params() {
-	if [[ $1 -ne $2 ]]; then
-		echo "Illegal number of parameters"
+	if [[ $1 < $2 ]]; then
+		echo "Illegal number of parameters. Expected $2 got $1"
 		exit
 	fi
 }
 
+# echo a colored message
+# param 1 : message string
+# param 2 : associated color
+function echo_colored() {
+	check_params $# 2
+	echo -e "${colors[$2]}""$1""${colors[SKIP]}"
+}
+
+# show an error message
+show_error() {
+	check_params $# 1
+	echo_colored "$1" "BOLDRED"
+}
+
+# shows a warning message
+show_warning() {
+	check_params $# 1
+	echo_colored "$1" "BOLDYELLOW"
+}
+
+show_success() {
+	check_params $# 1
+	echo_colored "$1" "BOLDGREEN"
+}
+
+show_command() {
+	check_params $# 1
+	echo_colored "$1" "$commands_color"
+}
+
+########################### Business logic #########################################
 # shows help for user
 function help_usage() {
 cat << EOF
 Stores commands for you to remember :)
-Syntax: commands [OPTION] [name] [description]
+Syntax: commands [OPTION] [name] [description] [module]
 
     Options:
      -lm , --list-modules    	lists modules.
-     -mtm, --move-to-module	moves a command to another module.
      -a  , --add             	add new command.
      -u  , --update          	update existing command description.
      -un , --update-name     	update existing command name.
-     -r  , --remove          	remove command.
+     -r  , --remove          	remove command by its name.
      -s  , --source          	show .txt file location.
      -h  , --help            	print help.
 EOF
 }
 
-# shows commands source file
+# Gets the module text file path
 function show_source() {
-	echo "$src"
+	if [ -z "$1" ]
+	then
+		module="$default_module"
+	else
+		module="$1"
+	fi
+
+	printf "%s/%s%s\n" "$srcdir" "$module" "$modulesuffix"
 }
 
 # add new command
 function add_command() {
 	check_params $# 2
-	if [ -z "$3" ]
-	then
-		module="default"
-	else
-		module="$3"
-	fi
 
-	name="$1"
-	description="$2"
-	srcmodule="$module"
-	grep -q "^$name=.*$" "$src"
-	if [[ $? = 0 ]]; then 
-		echo -e "\033[01;31m"Command Name Already Exists!"\033[00m"
-	elif [[ $? = 1 ]]; then 
-		echo "$name=$description">>"$src" && echo -e "\033[01;34m"Command Added"\033[00m"
+	local name="$1"
+	local description="$2"
+	local module_path
+	module_path=$(show_source "$3")
+
+	grep -q "^$name=.*$" "$module_path"
+	local search_result=$?
+
+	if [[ $search_result = 0 ]]; then 
+		show_error "Command Name Already Exists!"
+	elif [[ $search_result = 1 ]]; then 
+		echo "$name=$description">>"$module_path" && show_success "Command Added"
 	fi
 }
 
@@ -60,13 +227,17 @@ function add_command() {
 function update_command() {
 	check_params $# 2
 
-	name="$1"
-	description="$2"
-	grep -q "^$name=.*$" "$src"
-	if [[ $? = 0 ]]; then 
-		sed -ri "s/^${name//\//\\/}=.*$/${name//\//\\/}=$description/" "$src" && echo -e "\033[01;34m"Command Updated"\033[00m"
-	elif [[ $? = 1 ]]; then 
-		echo -e "\033[01;31m"Command Name Not Found!"\033[00m"
+	local name="$1"
+	local description="$2"
+	local module_path
+	module_path=$(show_source "$3")
+
+	grep -q "^$name=.*$" "$module_path"
+	search_result=$?
+	if [[ $search_result = 0 ]]; then 
+		sed -ri "s/^${name//\//\\/}=.*$/${name//\//\\/}=$description/" "$module_path" && echo -e "\033[01;34m"Command Updated"\033[00m"
+	elif [[ $search_result = 1 ]]; then 
+		show_error "Command Name Not Found!"
 	fi
 }
 
@@ -74,13 +245,19 @@ function update_command() {
 function update_name() {
 	check_params $# 2
 
-	name="$1"
-	new_name="$2"
-	grep -q "^$name=.*$" "$src"
-	if [[ $? = 0 ]]; then 
-		sed -ri "s/^${name//\//\\/}=(.*)$/${new_name//\//\\/}=\1/" "$src" && echo -e "\033[01;34m"Command Name Updated"\033[00m"
-	elif [[ $? = 1 ]]; then 
-		echo -e "\033[01;31m"Command Name Not Found!"\033[00m"
+	local name="$1"
+	local new_name="$2"
+
+	local module_path
+	module_path=$(show_source "$3")
+
+	grep -q "^$name=.*$" "$module_path"
+	search_result=$?
+
+	if [[ $search_result = 0 ]]; then 
+		sed -ri "s/^${name//\//\\/}=(.*)$/${new_name//\//\\/}=\1/" "$module_path" && echo -e "\033[01;34m"Command Name Updated"\033[00m"
+	elif [[ $search_result = 1 ]]; then 
+		show_error "Command Name Not Found!"
 	fi
 }
 
@@ -89,46 +266,149 @@ function remove_command() {
 	check_params $# 1
 
 	name="$1"
-	grep -q "^$name=.*$" "$src"
+	module_path=$(show_source "$2")
+
+	grep -q "^$name=.*$" "$module_path"
 	
-	if [[ $? = 0 ]]; then 
-		sed -ri "/^$name=.*$/d" "$src"
+	search_result=$?
+
+	if [[ $search_result = 0 ]]; then 
+		sed -ri "/^$name=.*$/d" "$module_path"
 		echo -e "\033[01;34m"Command Removed"\033[00m"
-	elif [[ $? = 1 ]]; then 
-		echo -e "\033[01;31m"Command Name Not Found!"\033[00m"
+	elif [[ $search_result = 1 ]]; then 
+		show_error "Command Name Not Found!"
 	fi
+}
+
+# Shows the content of a certain module in a card
+function show_module() {
+	local module_name="$1"
+	local card_size="$2"
+	local header_color="$3"
+
+	# Final result
+	result=""
+
+	# total number of lines	
+	local lines_number=${global_lengths[$module_name]}
+
+	# Padding to be applied for all lines
+	# If number of cols is less than the size of our terminal. The padding will not be applied (negative value)
+	local padding_length=$(( (num_terminal_cols - card_size)/2 ))
+	local padding
+	padding=$(printf "%*s" $padding_length)
+	
+	# Padding before and after the command and its description
+	local internal_horizontal_card_padding
+	internal_horizontal_card_padding=$(printf "%*s" $internal_horizontal_card_padding_length)
+
+	# Prints an empty card line for a card
+	local empty_card_line
+	empty_card_line=$(printf '%*s' "$card_size")
+
+	header_name_length=${#module_name}
+
+	# header padding
+	header_internal_padding_length=$(( (card_size - header_name_length) / 2))
+	header_internal_padding=$(printf "%*s" $header_internal_padding_length)
+
+	# header padding after the title
+	header_internal_padding_after_length=$((card_size - (header_internal_padding_length+header_name_length) ))
+	header_internal_padding_after=$(printf "%*s" $header_internal_padding_after_length)
+
+	result+="$padding"
+	result+=$(show_card_header "${header_internal_padding}$module_name${header_internal_padding_after}" "$header_color")"\n"
+
+	# Print the actual card content
+	for ((j=0; j < internal_top_card_padding_length; j++)); do
+		result+="$padding"
+		result+=$(show_card_content "$empty_card_line")"\n"
+	done
+
+	for ((i=0; i < lines_number; i++)); do
+		result+="$padding"
+		
+		local name_length=${#global_names[$module,$i]}
+		local description_length=${#global_descriptions[$module,$i]}
+		
+		local intermediary_space_length=$(( card_size - (name_length+description_length+2*internal_horizontal_card_padding_length) ))
+		local intermediary_space
+		intermediary_space=$(printf "%*s" $intermediary_space_length)
+
+
+
+		result+=$(show_card_content "${internal_horizontal_card_padding}""${global_names[$module,$i]}""$intermediary_space""${global_descriptions[$module,$i]}${internal_horizontal_card_padding}")"\n"
+	done
+
+	for ((j=0; j < internal_bottom_card_padding_length; j++)); do
+		result+="$padding"
+		result+=$(show_card_content "$empty_card_line")"\n"
+	done
+
+	echo -ne "$result"
 }
 
 # show existing commands
 function show_commands() {
-	while read p; do
-		name=$(cut -d"=" -f1 <<< "$p") 
-		description=$(cut -d"=" -f2 <<< "$p")
-			
-		printf "\033[01;34m%-40s\033[00m %s\n" "$name" "$description"
-	done <"$src"
+	local modules
+	modules=$(list_modules)
+	local global_result=""
+
+	# Go through each module. capture names+descriptions+lengths
+	for module in $modules; do
+		local module_path
+		module_path=$(show_source "$module")
+		local i=0
+		# Read through all lines, find the longest line
+		while read -r line; do
+			# The name of the command (built in expansion is faster than cut)
+			local name="${line%%=*}" 
+			# Its description
+			local description="${line#*=}"
+
+			local line_length=${#line}
+
+			if (( line_length > longest_line_length )); then
+				longest_line_length=$line_length
+			fi
+			global_names[$module,$i]=$name
+			global_descriptions[$module,$i]=$description
+			i=$((i+1))
+		done <"$module_path"
+		global_lengths[$module]=$i
+	done
+
+	# Card Size
+	local card_size=$((longest_line_length+min_cols_separator+2*internal_horizontal_card_padding_length))
+	
+	local i=0
+	for module in $modules; do
+		global_result+=$(show_module "$module" "$card_size" "${header_colors[$i]}")
+		global_result+="\n\n"
+		i=$((i+1))
+	done
+	echo -e "$global_result"
 }
 
 # lists  modules
 function list_modules() {
-	modules=$(find . -type f -name "*$modulesuffix" -printf '%f\n'| cut -d"_" -f1)
-	echo "$modules"	
+	local module_names
+	module_names=$(find $srcdir -type f -name "*$modulesuffix" -printf '%f\n'| sort |cut -d"_" -f1)
+
+	printf "%s" "$module_names"	
 }
 
 # Main Program
 function main() {
 	if [ -z "$1" ] 
 	then
-		show_commands		
+		show_commands "$@"
 	else
 	param="$1"
 	shift
 	case $param in
 		-lm|--list-modules)
 			list_modules "$@"
-			;;
-		-mtm|--move-to-module)
-			move_to_module "$@"
 			;;
 		-a|--add)
 			add_command "$@"
@@ -143,13 +423,13 @@ function main() {
 			remove_command "$@"
 			;;
 		-s|--source)
-			show_source
+			show_source "$@"
 			;;
 		-h|--help)
 			help_usage
 			;;
 		*)
-			"Invalid parameter was provided: $param"
+			show_error "Invalid parameter was provided: $param"
 	esac
 	fi
 }

@@ -1,0 +1,6 @@
+hexdump=Shows file content in different formats
+xxd -p=Shows file content as hex
+xxd -p -r=Returns file from hex
+echo '0a68..' | xxd -p -r > file=Creates file with bytes as content
+shuf=Shuffle lines of a File
+strings file.bin=Display printable strings in binary

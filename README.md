@@ -4,7 +4,9 @@ This repository contains a few scripts that I use generally when running my desk
 
 ## Scripts  
 
-**commands** : A utility to store description on different commands. Useful when you forget your commands quite often...
+**commands** : A utility to store description on different commands. Useful when you forget your commands quite often... Style heavily inspired from [nvChad](https://nvchad.com/)
+
+![Commands](resources/commands.png)
 
 **open** : A utility used as a shortcut to open projects & files fast.
 
