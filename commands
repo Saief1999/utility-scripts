@@ -177,19 +177,122 @@ show_command() {
 ########################### Business logic #########################################
 # shows help for user
 function help_usage() {
-cat << EOF
+
+	if [ -z "$1" ]; then
+		cat << EOF
 Stores commands for you to remember :)
-Syntax: commands [OPTION] [name] [description] [module]
+Syntax: commands [OPTION] [ARGS]
 
     Options:
-     -lm , --list-modules    	lists modules.
      -a  , --add             	add new command.
      -u  , --update          	update existing command description.
      -un , --update-name     	update existing command name.
      -r  , --remove          	remove command by its name.
+     -lm , --list-modules       lists modules.
+     -um , --update-module      update existing module name.
+     -rm , --remove-module      remove module by its name.
+     -m  , --modules            list commands of specific modules
      -s  , --source          	show .txt file location.
      -h  , --help            	print help.
 EOF
+	else
+		case $1 in
+		-a|--add)
+			cat << EOF
+Adds a new command to a module
+Syntax: commands -a|--add [name] [description] [module]
+
+    Arguments:
+     name                   command name.
+     description            command description.
+     module                 module name.
+EOF
+			;;
+		-u|--update) 
+			cat << EOF
+Updates existing command description
+Syntax: commands -u|--update [name] [new_description] [module]
+
+    Arguments:
+     name                   command name.
+     new_description        new command description.
+     module                 module name.
+EOF
+			;;
+		-un|--update-name) 
+			cat << EOF
+Updates existing command name
+Syntax: commands -un|--update-name [name] [new_name] [module]
+
+    Arguments:
+     name                   old command name.
+     new_name               new command name.
+     module                 module name.
+EOF
+			;;
+		-r|--remove)
+			cat << EOF
+Removes a command by its name
+Syntax: commands -r|--remove [name] [module]
+
+    Arguments:
+     name             	    command name.
+     module                 module name.
+EOF
+			;;
+		-lm|--list-modules)
+			cat << EOF
+Lists all modules
+Syntax: commands -lm|--list-modules
+EOF
+			;;
+		-um|--update-module)
+			cat << EOF
+Updates existing module name
+Syntax: commands -um|--update-module [module] [new_name]
+
+    Arguments:
+     module                 old module name.
+     new_name               new module name.
+EOF
+			;;
+		-rm|--remove-module)
+			cat << EOF
+Removes a module by its name
+Syntax: commands -rm|--remove-module [module]
+
+    Arguments:
+     module             	module name.
+EOF
+			;;
+		-m|--module|--modules)
+			cat << EOF
+Lists commands of specific modules
+Syntax: commands -m|--module|--modules module1 module2 [module1,module2]...
+EOF
+		;;
+		-s|--source)
+			cat << EOF
+Shows source file of a certain module
+Syntax: commands -s|--source [module]
+
+    Arguments:
+     module             	module name.
+EOF
+			;;
+		-h|--help)
+			cat << EOF
+Prints help. If a parameter is provided will show help for subcommand instead
+Syntax: commands -h|--help [param]
+
+    Arguments:
+     param             	    --update, --remove, -u, -r, ...
+EOF
+			;;
+		*)
+			show_error "Invalid parameter was provided: $param"
+	esac
+	fi
 }
 
 # Gets the module text file path
@@ -235,7 +338,7 @@ function update_command() {
 	grep -q "^$name=.*$" "$module_path"
 	search_result=$?
 	if [[ $search_result = 0 ]]; then 
-		sed -ri "s/^${name//\//\\/}=.*$/${name//\//\\/}=$description/" "$module_path" && echo -e "\033[01;34m"Command Updated"\033[00m"
+		sed -ri "s/^${name//\//\\/}=.*$/${name//\//\\/}=$description/" "$module_path" && show_success "Command Updated"
 	elif [[ $search_result = 1 ]]; then 
 		show_error "Command Name Not Found!"
 	fi
@@ -255,7 +358,7 @@ function update_name() {
 	search_result=$?
 
 	if [[ $search_result = 0 ]]; then 
-		sed -ri "s/^${name//\//\\/}=(.*)$/${new_name//\//\\/}=\1/" "$module_path" && echo -e "\033[01;34m"Command Name Updated"\033[00m"
+		sed -ri "s/^${name//\//\\/}=(.*)$/${new_name//\//\\/}=\1/" "$module_path" && show_success "Command Name Updated"
 	elif [[ $search_result = 1 ]]; then 
 		show_error "Command Name Not Found!"
 	fi
@@ -304,7 +407,7 @@ function show_module() {
 
 	# Prints an empty card line for a card
 	local empty_card_line
-	empty_card_line=$(printf '%*s' "$card_size")
+	empty_card_line=$(printf "%*s" "$card_size")
 
 	header_name_length=${#module_name}
 
@@ -334,8 +437,6 @@ function show_module() {
 		local intermediary_space_length=$(( card_size - (name_length+description_length+2*internal_horizontal_card_padding_length) ))
 		local intermediary_space
 		intermediary_space=$(printf "%*s" $intermediary_space_length)
-
-
 
 		result+=$(show_card_content "${internal_horizontal_card_padding}""${global_names[$module,$i]}""$intermediary_space""${global_descriptions[$module,$i]}${internal_horizontal_card_padding}")"\n"
 	done
@@ -407,6 +508,38 @@ function list_modules() {
 	printf "%s\n" "$module_names"	
 }
 
+# remove a module
+function remove_module() {
+	check_params $# 1
+
+	local module_path
+	module_path=$(show_source "$1")
+
+	if  [[ -f "$module_path" ]]; then 
+		rm "$module_path" && show_success "Module removed"
+	else
+		show_error "Module Not Found!"
+	fi
+}
+
+# update a module's name
+function update_module() {
+	check_params $# 2
+
+	local module_name="$1"
+	local new_name="$2"
+
+	local module_path
+	module_path=$(show_source "$1")
+
+	if  [[ -f "$module_path" ]]; then 
+		mv "$module_path" "$(show_source "$new_name")" && show_success "Module name updated"
+	else
+		show_error "Module Not Found!"
+	fi
+}
+
+
 # Main Program
 function main() {
 	if [ -z "$1" ] 
@@ -416,9 +549,6 @@ function main() {
 	param="$1"
 	shift
 	case $param in
-		-lm|--list-modules)
-			list_modules "$@"
-			;;
 		-a|--add)
 			add_command "$@"
 			;;
@@ -431,14 +561,23 @@ function main() {
 		-r|--remove)
 			remove_command "$@"
 			;;
+		-lm|--list-modules)
+			list_modules "$@"
+			;;
+		-um|--update-module)
+			update_module "$@"
+			;;
+		-rm|--remove-module)
+			remove_module "$@"
+			;;
+		-m|--module|--modules)
+			show_commands "$@"
+			;;
 		-s|--source)
 			show_source "$@"
 			;;
 		-h|--help)
-			help_usage
-			;;
-		-m|--module|--modules)
-			show_commands "$@"
+			help_usage "$@"
 			;;
 		*)
 			show_error "Invalid parameter was provided: $param"
