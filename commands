@@ -351,7 +351,15 @@ function show_module() {
 # show existing commands
 function show_commands() {
 	local modules
-	modules=$(list_modules)
+
+	if [[ $# -eq 0 ]]; then
+		modules=$(list_modules)
+	else
+		modules=$*
+		# replace commas with spaces
+		modules=${modules//,/ }
+	fi
+	
 	local global_result=""
 
 	# Go through each module. capture names+descriptions+lengths
@@ -387,7 +395,8 @@ function show_commands() {
 		global_result+="\n\n"
 		i=$((i+1))
 	done
-	echo -e "$global_result"
+	printf "\n"
+	echo -ne "$global_result"
 }
 
 # lists  modules
@@ -395,7 +404,7 @@ function list_modules() {
 	local module_names
 	module_names=$(find $srcdir -type f -name "*$modulesuffix" -printf '%f\n'| sort |cut -d"_" -f1)
 
-	printf "%s" "$module_names"	
+	printf "%s\n" "$module_names"	
 }
 
 # Main Program
@@ -427,6 +436,9 @@ function main() {
 			;;
 		-h|--help)
 			help_usage
+			;;
+		-m|--module|--modules)
+			show_commands "$@"
 			;;
 		*)
 			show_error "Invalid parameter was provided: $param"
