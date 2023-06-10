@@ -2,6 +2,6 @@ systemctl restart sshd.service=Restart SSH Service
 /opt/lampp/lampp start=Start Xampp Server
 systemctl start elasticsearch=Start Elasticsearch
 systemctl start kafka=Start Kafka
-systemctl start  redis=Start Redis
+systemctl start redis=Start Redis
 systemctl start docker=Start Docker
 systemctl start systemd-homed=Start Home Manager

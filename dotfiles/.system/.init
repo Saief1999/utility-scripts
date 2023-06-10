@@ -16,6 +16,13 @@ export AUR_USERNAME=saief1999
 
 # System Custom scripts
 export SYSTEMD_EDITOR=vim
+
 # Show images in the kitty terminal
 alias icat="kitty +kitten icat"
+
+# Monitor Network
+alias ntopng="docker run -it -p 3000:3000 --net=host ntop/ntopng:latest -i wlo1"
+
+# Show Weather report
+alias temp="curl wttr.in"
 
