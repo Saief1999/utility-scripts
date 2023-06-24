@@ -1,10 +1,10 @@
 # utility-scripts
 
-This repository contains a few scripts that I use generally when running my desktop environment. Also lists a couple of conventions/packages/tools that I usually use on linux systems
+This repository contains a few scripts that I use generally when running my desktop environment. Also lists a couple of conventions/packages/tools that I usually use on linux systems.
 
 ## Scripts  
 
-**commands** : A utility to store description on different commands. Useful when you forget your commands quite often... Style heavily inspired from [nvChad](https://nvchad.com/)
+**commands** : A utility to store description on different commands. Useful when you forget your commands quite often ( like l3abdou lellah... ). Style heavily inspired from [nvChad](https://nvchad.com/)
 
 ![Commands](resources/commands.png)
 
@@ -46,7 +46,7 @@ This repository contains a few scripts that I use generally when running my desk
   - Show non-printable characters with `-A` ( Saved my life many times! )
 
 - `taskwarrior` : One of the best todo list managers from the CLI.
-  - Highly configurable & very useful even in simple cases 
+  - Highly configurable & very useful even in simple cases
   - Can show charts ( burndown ect... )
 
 - `btop` : Alternative to `top` but with much more information.
@@ -56,6 +56,11 @@ This repository contains a few scripts that I use generally when running my desk
 - `neovim` : The future of vim!
   - Better copying/pasting mechanism
   - Cursor changes when in Insert mode, making changes easier
+
+- `kitty` : a GPU based terminal emulator
+  - Can show images
+  - Supports emojis out of the box
+  - Much faster then the default `xfce4-terminal`
 
 ### GUI
 
@@ -85,7 +90,6 @@ These are the personal conventions I use when I first set up any linux system.
 
 - Regular usage directories need to have their own env variables, then exported in `~/.system/.init`
 
-
 ### Shortcuts To daily projects
 
 for that I create a script `open`
@@ -104,14 +108,13 @@ source path/to/open-completion
 
 In `/etc/modprobe.d/nobeep.conf` I add this:
 
-```
+```bash
 blacklist pcspkr
 ```
 
 The module becomes blacklisted at boot. Very useful to disable the annoying beep sound that we get sometimes.
 
-for more info, check : https://wiki.archlinux.org/title/PC_speaker
-
+for more info, check : [Archlinux Wiki - PC speaker](https://wiki.archlinux.org/title/PC_speaker)
 
 ### Copying directly from the terminal
 
@@ -123,7 +126,7 @@ I add this alias to `~/.system/.init`
 alias xclip='xclip -selection clipboard'
 ```
 
-Then we can use it like this 
+Then we can use it like this
 
 ```bash
 echo "Stuff to copy" | xclip
@@ -147,9 +150,9 @@ There's no reason to add a swap partition in initial setup. We can do it later o
 
 Very important, we don't want anything to launch automatically at startup. Keep the services disabled and start them when necessary (to save memory)
 
-### Cheatsheets 
+### Cheatsheets
 
-Check https://github.com/Saief1999/CheatSheets
+Check [Cheatsheets Repository](https://github.com/Saief1999/CheatSheets)
 
 Books for topics should never be checked out with the repo. Instead we simply add their name to `CheatSheets/TOPIC/books/books.txt` and ignore them in `.gitignore` ( check existing topics for examples ).
 

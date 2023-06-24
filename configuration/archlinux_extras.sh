@@ -3,7 +3,6 @@
 # This script sets up some customization needed, DO NOT RUN AS ROOT
 
 readonly script_dir=$(pwd)
-readonly current_home=$HOME
 
 # Install Yay AUR helper
 

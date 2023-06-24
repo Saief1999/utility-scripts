@@ -9,5 +9,5 @@ ln -sf "$dotfiles_path/.translate-shell" "$HOME/"
 ln -sf "$dotfiles_path"/.system "$HOME/"
 ln -sf "$dotfiles_path/.kitty" "$HOME/.config/kitty/kitty.conf"
 
-# This part should be executed only onces
+# This part below should be executed only once
 #echo 'source $HOME/.system/.init' >> $HOME/.bashrc
