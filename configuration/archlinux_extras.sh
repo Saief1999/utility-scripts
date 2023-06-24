@@ -13,7 +13,7 @@ git clone https://aur.archlinux.org/yay.git
 
 cd yay
 makepkg -si
-rm -r $script_dir/yay
+rm -r "$script_dir/yay"
 
 # Install kitty Terminal
 yay -S kitty
@@ -48,4 +48,4 @@ yay -S ttf-dejavu ttf-liberation noto-fonts ttf-caladea ttf-carlito ttf-opensans
 sudo ln -s /etc/fonts/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d
 
 # Install necessary AUR packages
-yay -S --needed - < $script_dir/../packages/arch_aur.txt
+yay -S --needed - < "$script_dir/../packages/arch_aur.txt"

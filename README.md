@@ -1,5 +1,7 @@
 # utility-scripts
 
+[![GitHub Super-Linter](https://github.com/saief1999/utility-scripts/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
+
 This repository contains a few scripts that I use generally when running my desktop environment. Also lists a couple of conventions/packages/tools that I usually use on linux systems.
 
 ## Scripts  
