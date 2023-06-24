@@ -6,6 +6,7 @@
 alias cat='bat -pp'
 export SHEETS=~/Documents/tuts/CheatSheets
 PATH=$PATH:~/Documents/commands
+# shellcheck source=/dev/null
 source ~/Documents/commands/open-completion
 export INSAT=~/Documents/gl5/sem1
 alias xclip='xclip -selection clipboard'

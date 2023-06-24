@@ -2,8 +2,11 @@
 
 ## DO NOT EXECUTE AS ROOT! , execute this after the "extras" config file
 
+set -e 
+
 # Extra setup : Dotfiles
-readonly dotfiles_path="$(pwd)/../dotfiles"
+dotfiles_path="$(pwd)/../dotfiles"
+readonly dotfiles_path
 
 ln -sf "$dotfiles_path/.translate-shell" "$HOME/"
 ln -sf "$dotfiles_path"/.system "$HOME/"

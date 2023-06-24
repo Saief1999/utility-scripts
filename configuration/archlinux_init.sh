@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e 
+
 # This is the main script used to initialize an Arch linux system. Use it with "sudo"
 
 # Update the System

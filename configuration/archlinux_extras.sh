@@ -1,8 +1,11 @@
 #!/bin/bash
 
+set -e 
+
 # This script sets up some customization needed, DO NOT RUN AS ROOT
 
-readonly script_dir=$(pwd)
+script_dir=$(pwd)
+readonly script_dir
 
 # Install Yay AUR helper
 

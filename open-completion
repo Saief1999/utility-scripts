@@ -1,6 +1,11 @@
 #!/bin/bash
 
 # This is used to enable the <TAB> auto-complete functionality
-readonly src="$HOME/Documents/commands/open.txt"
-readonly wordlist=$(cat "$src")
+
+src="$HOME/Documents/commands/open.txt"
+readonly src
+
+wordlist=$(cat "$src")
+readonly wordlist
+
 complete -W "$wordlist" open

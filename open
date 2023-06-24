@@ -2,7 +2,10 @@
 
 readonly srcdir="$HOME/Documents/commands"
 readonly src="$srcdir/open.txt" # Contains the names of the different commands, separated by spaces.
-readonly commands_array=$(cat "$src") 
+
+commands_array=$(cat "$src") 
+readonly commands_array
+
 function help_usage() {
 cat << EOF
 Opens certain projects

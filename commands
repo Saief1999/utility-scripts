@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Disable shellcheck rule for printf
+# shellcheck disable=SC2183
+
 # source directory that contains commands
 readonly srcdir="/home/saief1999/Documents/commands"
 readonly modulesuffix="_commands.txt"
@@ -407,7 +410,7 @@ function show_module() {
 
 	# Prints an empty card line for a card
 	local empty_card_line
-	empty_card_line=$(printf "%*s" "$card_size")
+	empty_card_line=$(printf '%*s' "$card_size")
 
 	header_name_length=${#module_name}
 
