@@ -11,8 +11,9 @@ readonly script_dir
 
 git clone https://aur.archlinux.org/yay.git
 
-cd yay
+pushd yay
 makepkg -si
+popd
 rm -r "$script_dir/yay"
 
 # Install kitty Terminal
@@ -46,6 +47,14 @@ yay -S ttf-dejavu ttf-liberation noto-fonts ttf-caladea ttf-carlito ttf-opensans
 
 
 sudo ln -s /etc/fonts/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d
+
+# Setting up Extra Rofi Themes
+git clone --depth=1 https://github.com/adi1090x/rofi.git
+pushd rofi
+chmod +x setup.sh
+./setup.sh
+popd
+rm -rf "$script_dir/rofi"
 
 # Install necessary AUR packages
 yay -S --needed - < "$script_dir/../packages/arch_aur.txt"

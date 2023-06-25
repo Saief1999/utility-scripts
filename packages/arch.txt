@@ -38,6 +38,7 @@ peek
 prometheus
 prometheus-node-exporter
 redshift
+rofi
 rsync
 speedtest-cli
 steam
