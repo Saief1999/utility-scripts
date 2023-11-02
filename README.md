@@ -142,6 +142,29 @@ for that I use the `bat` package described above, with this alias in `~/.system/
 alias cat='bat -pp'
 ```
 
+### Saving into the same file in bash
+
+In bash:
+
+- redirections are processed before the command is actually executed, but
+- expansions are processed before redirections.
+
+This means that for `cat file > file`, the output redirection (which truncates the file) occurs before cat is spawned, and cat now has an empty file to work with.
+
+To avoid this. We can use `sponge` which is part of the `moreutils` package. By doing
+
+```bash
+cat file | sponge file
+```
+
+This is especially when we have many operations. and we want to save them into the same file.
+
+```bash
+cat file | sort | cut -d" " -f1 | head -n 5 | sponge file
+```
+
+Node that some commands have the ability to save into the same file already. like `sed -i` for example
+
 ### Add Swap (Very important)
 
 Running out of memory in linux is never a good thing. The system will crash with no warnings. For that it's very important to add Swap memory ( 4 ~ 5 GB is enough )

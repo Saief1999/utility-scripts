@@ -13,4 +13,4 @@ ln -sf "$dotfiles_path"/.system "$HOME/"
 ln -sf "$dotfiles_path/.kitty" "$HOME/.config/kitty/kitty.conf"
 
 # This part below should be executed only once
-#echo 'source $HOME/.system/.init' >> $HOME/.bashrc
+echo "source $HOME/.system/.init" >> "$HOME/.bashrc"

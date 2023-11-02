@@ -26,9 +26,13 @@ xdg-user-dirs-update
 # install gui network manager
 yay -S network-manager-applet
 
-# Theming (After installation, set it manually to light/dark mode)
-yay -S matcha-gtk-theme
-yay -S papirus-icon-theme
+# Theming V1 (After installation, set it manually to light/dark mode)
+# yay -S matcha-gtk-theme
+# yay -S papirus-icon-theme
+
+# Theming V2
+yay -S materia-gtk-theme
+yay -S qogir-icon-theme
 
 # Add whisker menu ( instead of classic xfce application menu, needs manual setup in Settings > Panel > Items add Whisker Menu) then add the shortcut)
 yay -S xfce4-whiskermenu-plugin 
@@ -43,18 +47,21 @@ yay -S thunar-volman gvfs
 yay -S thunar-archive-plugin
  
 # Install fonts ( Afterwards, change fonts to noto sans regular both in window manager and appearance ) 
-yay -S ttf-dejavu ttf-liberation noto-fonts ttf-caladea ttf-carlito ttf-opensans ttf-impallari-cantora otf-overpass ttf-roboto tex-gyre-fonts ttf-ubuntu-font-family ttf-courier-prime ttf-gelasio-ib ttf-merriweather ttf-source-sans-pro-ibx ttf-signika nerd-fonts-noto-sans-regular-complete
-
+yay -S ttf-dejavu ttf-liberation noto-fonts ttf-caladea ttf-carlito ttf-opensans \
+ttf-impallari-cantora otf-overpass ttf-roboto tex-gyre-fonts ttf-ubuntu-font-family \
+ttf-courier-prime ttf-gelasio-ib ttf-merriweather ttf-source-sans-pro-ibx ttf-signika \
+nerd-fonts-noto-sans-regular-complete noto-fonts-emoji noto-fonts-cjk \
+ttf-fira-mono otf-fira-sans 
 
 sudo ln -s /etc/fonts/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d
 
-# Setting up Extra Rofi Themes
-git clone --depth=1 https://github.com/adi1090x/rofi.git
-pushd rofi
-chmod +x setup.sh
-./setup.sh
-popd
-rm -rf "$script_dir/rofi"
+# # Setting up Extra Rofi Themes
+# git clone --depth=1 https://github.com/adi1090x/rofi.git
+# pushd rofi
+# chmod +x setup.sh
+# ./setup.sh
+# popd
+# rm -rf "$script_dir/rofi"
 
 # Install necessary AUR packages
 yay -S --needed - < "$script_dir/../packages/arch_aur.txt"
