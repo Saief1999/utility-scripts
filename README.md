@@ -73,7 +73,7 @@ This repository contains a few scripts that I use generally when running my desk
 - `drawio-desktop` : Draw Diagrams for architectures offline.
   - Very useful when we don't have an internet connection, or when we don't want to use the web version.
 
-- `Insomnia` : An API design plateform
+- `Insomnia` : An API design platform
   - Supports offline development with no hustle.
   - Much better than `Postman` ( which separates offline and online workspaces... )
 
