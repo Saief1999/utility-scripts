@@ -129,7 +129,7 @@ So to start of we do this
 11. Unmount and reboot
 
     - `exit` to return to LiveCd root
-    - `umount -R /mnt` : unmount everyting under /mnt
+    - `umount -R /mnt` : unmount everything under /mnt
     - `reboot`
 
 ## 4. Post installation
