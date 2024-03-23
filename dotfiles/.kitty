@@ -1,2 +1,3 @@
 enable_audio_bell no
 background #121212
+scrollback_lines 10000

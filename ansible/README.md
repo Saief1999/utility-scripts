@@ -2,7 +2,7 @@
 
 ## Overview
 
-This folder contains the ansible setup we have
+This folder contains the Ansible setup we have
 
 ## Useful commands
 
