@@ -26,4 +26,3 @@ alias ntopng="docker run -it -p 3000:3000 --net=host ntop/ntopng:latest -i wlo1"
 
 # Show Weather report
 alias temp="curl wttr.in"
-

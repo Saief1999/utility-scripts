@@ -21,4 +21,3 @@ systemctl enable sddm
 # Install necessary Pacman packages
 
 pacman -S --needed - < ../packages/arch.txt
-
