@@ -2,7 +2,7 @@
 
 ## DO NOT EXECUTE AS ROOT! , execute this after the "extras" config file
 
-set -e 
+set -e
 
 # Extra setup : Dotfiles
 dotfiles_path="$(pwd)/../dotfiles"

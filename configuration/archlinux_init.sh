@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e 
+set -e
 
 # This is the main script used to initialize an Arch linux system. Use it with "sudo"
 
@@ -20,4 +20,4 @@ systemctl enable sddm
 
 # Install necessary Pacman packages
 
-pacman -S --needed - < ../packages/arch.txt
+pacman -S --needed - <../packages/arch.txt
