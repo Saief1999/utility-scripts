@@ -2,11 +2,11 @@
 
 [![GitHub Super-Linter](https://github.com/saief1999/utility-scripts/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
-This repository contains a few scripts that I use generally when running my desktop environment. Also lists a couple of conventions/packages/tools that I usually use on linux systems.
+This repository contains a few scripts that I use generally when running my desktop environment. Also lists a couple of conventions/packages/tools that I usually use on Linux systems.
 
-## Scripts  
+## Scripts
 
-**commands** : A utility to store description on different commands. Useful when you forget your commands quite often ( like l3abdou lellah... ). Style heavily inspired from [nvChad](https://nvchad.com/)
+**commands** : A utility to store descriptions on different commands. Useful when you forget your commands quite often ( like l3abdou lellah... ). Style heavily inspired by [nvChad](https://nvchad.com/)
 
 ![Commands](resources/commands.png)
 
@@ -16,13 +16,13 @@ This repository contains a few scripts that I use generally when running my desk
 
 ### CLI
 
-- `yay` : An AUR helper used in Arch & Arch based distros. Helps building/updating AUR packages .
-  - Syntax very similar to `pacman`, the default package manager for arch systems.
+- `yay` : An AUR helper used in Arch & Arch-based distros. Helps building and updating AUR packages .
+  - Syntax is very similar to `pacman`, the default package manager for arch systems.
   - Handles conflicts & issues in a much better way than `pamac` (from personal experience).
 
 - `paru` : Another very useful AUR helper, written in Rust.
   - Maintained by the biggest contributor of `yay`.
-  - Syntax very similar to `yay`.
+  - Syntax is very similar to `yay`.
   - Relatively newer than `yay` (and less stable).
 
 - `tldr` : A very useful CLI tool, shows brief documentation for CLI tools.
@@ -80,13 +80,13 @@ This repository contains a few scripts that I use generally when running my desk
 - `Datagrip` : Useful to manage SQL databases from a unified frontend
 
 - `beekeeper-studio` : An alternative to `Datagrip`
-  - If we have no access to jetbrains products. We can use this instead.
+  - If we have no access to JetBrains products. We can use this instead.
 
 - `VScode` : No introductions necessary
 
 ## Conventions & Practices
 
-These are the personal conventions I use when I first set up any linux system.
+These are the personal conventions I use when I first set up any Linux system.
 
 - `~/.system/.init` : I use this file to store my aliases & Env variables. It's included in `~/.bashrc`.
 
@@ -94,9 +94,9 @@ These are the personal conventions I use when I first set up any linux system.
 
 ### Shortcuts To daily projects
 
-for that I create a script `open`
+for that, I created a script `open`
 
-I use this to open projects I work on daily, or files that I check regularly.
+I use this to open projects I work on daily or files that I check regularly.
 
 Check the `open` script for an example of usage.
 
@@ -116,11 +116,11 @@ blacklist pcspkr
 
 The module becomes blacklisted at boot. Very useful to disable the annoying beep sound that we get sometimes.
 
-for more info, check : [Archlinux Wiki - PC speaker](https://wiki.archlinux.org/title/PC_speaker)
+for more info, check: [Archlinux Wiki - PC speaker](https://wiki.archlinux.org/title/PC_speaker)
 
 ### Copying directly from the terminal
 
-For that I use the `xclip` package described above.
+For that, I use the `xclip` package described above.
 
 I add this alias to `~/.system/.init`
 
@@ -136,7 +136,7 @@ echo "Stuff to copy" | xclip
 
 ### Supporting Syntax highlighting in cat
 
-for that I use the `bat` package described above, with this alias in `~/.system/.init`
+for that, I use the `bat` package described above, with this alias in `~/.system/.init`
 
 ```bash
 alias cat='bat -pp'
@@ -157,19 +157,19 @@ To avoid this. We can use `sponge` which is part of the `moreutils` package. By 
 cat file | sponge file
 ```
 
-This is especially when we have many operations. and we want to save them into the same file.
+This is especially useful when we have many operations. and we want to save them into the same file.
 
 ```bash
 cat file | sort | cut -d" " -f1 | head -n 5 | sponge file
 ```
 
-Node that some commands have the ability to save into the same file already. like `sed -i` for example
+Note that some commands can save the output into the same file already. like `sed -i` for example
 
 ### Add Swap (Very important)
 
-Running out of memory in linux is never a good thing. The system will crash with no warnings. For that it's very important to add Swap memory ( 4 ~ 5 GB is enough )
+Running out of memory in Linux is never a good thing. The system will crash with no warnings. For that it's very important to add Swap memory ( 4 ~ 5 GB is enough )
 
-There's no reason to add a swap partition in initial setup. We can do it later on using a `swap file` that we create. Both method are viable but the second is more flexible.
+There's no reason to add a swap partition in the initial setup. We can do it later on using a `swap file` that we create. Both methods are viable but the second is more flexible.
 
 ### Do not enable services for packages
 
@@ -179,8 +179,8 @@ Very important, we don't want anything to launch automatically at startup. Keep 
 
 Check [Cheatsheets Repository](https://github.com/Saief1999/CheatSheets)
 
-Books for topics should never be checked out with the repo. Instead we simply add their name to `CheatSheets/TOPIC/books/books.txt` and ignore them in `.gitignore` ( check existing topics for examples ).
+Books for topics should never be checked out with the repo. Instead, we simply add their name to `CheatSheets/TOPIC/books/books.txt` and ignore them in `.gitignore` ( check existing topics for examples ).
 
 ### Security
 
-We should put sensitive files inside a vault using `LUKS` and then mount it when needed.
+We should put sensitive files inside a vault using `LUKS` and then mount the vault when needed.
