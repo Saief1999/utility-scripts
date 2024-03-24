@@ -1,11 +1,13 @@
 ---
 - name: Check if yay is installed
-  command: pacman -Q yay
+  command:
+    cmd: pacman -Q yay
   register: yay_check
   ignore_errors: true
 
 - name: Install yay if needed
-  command: git clone https://aur.archlinux.org/yay.git && pushd yay && makepkg -si && popd
+  command:
+    cmd: git clone https://aur.archlinux.org/yay.git && pushd yay && makepkg -si && popd
   when: yay_check.stdout.find('was not found') != -1
   become: true
   become_user: "{{ username }}"
@@ -16,8 +18,9 @@
       - xdg-user-dirs
 
 - name: Setup XDG dirs
-  command: xdg-user-dirs-update
-  creates: "~{{ username }}/Documents"
+  command:
+    cmd: xdg-user-dirs-update
+    creates: "~{{ username }}/Documents"
   become: true
   become_user: "{{ username }}"
 
