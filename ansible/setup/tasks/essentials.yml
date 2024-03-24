@@ -1,9 +1,12 @@
 ---
-- name: Install Yay
+- name: Check if yay is installed
+  command: pacman -Q yay
+  register: yay_check
+
+- name: Install yay if needed
   ansible.builtin.shell:
-    cmd: git clone https://aur.archlinux.org/yay.git && pushd yay && makepkg -si && popd
-    chdir: "~{{ username }}"
-    creates: "~{{ username }}/yay"
+    command: git clone https://aur.archlinux.org/yay.git && pushd yay && makepkg -si && popd
+    when: yay.stdout.find('was not found') != -1
   become: true
   become_user: "{{ username }}"
 
