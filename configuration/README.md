@@ -138,4 +138,6 @@ So to start of we do this
 
 2. **Enable Multilib Repo in archlinux** because some packages belong to it
 
-3. Cd to the configuration dir and run `new/archlinux_init.sh`. And pray to god
+3. Go to the `configuration` dir and run `new/archlinux_init.sh`.
+
+4. Go to the `ansible` dir and start Ansible configuration by running `ansible-playbook -K main.yml -i inventory.yml` ( make sure the vars in setup/vars are set correctly first)
