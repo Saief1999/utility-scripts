@@ -12,6 +12,7 @@
 - name: Configure window manager
   ansible.builtin.shell:
     cmd: localectl set-x11-keymap fr
+    creates: /etc/X11/xorg.conf.d/00-keyboard.conf
 
 - name: Install XFCE desktop environment
   pacman:

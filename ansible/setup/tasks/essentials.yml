@@ -4,11 +4,15 @@
     cmd: git clone https://aur.archlinux.org/yay.git
     chdir: "~{{ username }}"
     creates: "~{{ username }}/yay"
+  become: true
+  become_user: "{{ username }}"
 
 - name: Install Yay
   ansible.builtin.shell:
     cmd: makepkg -si yay/
     chdir: "~{{ username }}"
+  become: true
+  become_user: "{{ username }}"
 
 - name: Download XDG dirs
   pacman:
@@ -19,6 +23,8 @@
   ansible.builtin.shell:
     cmd: xdg-user-dirs-update
     creates: "~{{ username }}/Documents"
+  become: true
+  become_user: "{{ username }}"
 
 - name: Install Network Applet
   pacman:
