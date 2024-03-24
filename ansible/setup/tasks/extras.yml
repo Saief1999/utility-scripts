@@ -2,7 +2,7 @@
 - name: Install Themes
   yay:
     name:
-      - xdg-user-dirs
+      - materia-gtk-theme
       - qogir-icon-theme
 
 - name: Install fonts
