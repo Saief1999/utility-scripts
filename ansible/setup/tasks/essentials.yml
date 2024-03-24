@@ -15,7 +15,7 @@
 
 - name: Install yay if needed
   command:
-    cmd: makepkg -si
+    cmd: makepkg -si --noconfirm
     chdir: "~{{ username }}/yay"
   when: yay_check.stdout.find('was not found') != 0
   become: true
