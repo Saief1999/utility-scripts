@@ -15,8 +15,8 @@
 
 - name: Install yay if needed
   command:
-    cmd: pushd yay && makepkg -si && popd
-    chdir: "~{{ username }}"
+    cmd: makepkg -si
+    chdir: "~{{ username }}/yay"
   when: yay_check.stdout.find('was not found') != 0
   become: true
   become_user: "{{ username }}"
