@@ -7,7 +7,7 @@
 
 - name: Install yay if needed
   command:
-    cmd: git clone https://aur.archlinux.org/yay.git && pushd yay && makepkg -si && popd
+    cmd: rm -rf yay && git clone https://aur.archlinux.org/yay.git yay && pushd yay && makepkg -si && popd
   when: yay_check.stdout.find('was not found') != 0
   become: true
   become_user: "{{ username }}"
