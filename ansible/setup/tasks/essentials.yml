@@ -2,6 +2,7 @@
 - name: Check if yay is installed
   command: pacman -Q yay
   register: yay_check
+  ignore_errors: true
 
 - name: Install yay if needed
   ansible.builtin.shell:
