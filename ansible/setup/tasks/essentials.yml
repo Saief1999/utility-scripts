@@ -1,5 +1,5 @@
 ---
-- name: Download Yay
+- name: Install Yay
   ansible.builtin.shell:
     cmd: git clone https://aur.archlinux.org/yay.git && pushd yay && makepkg -si && popd
     chdir: "~{{ username }}"

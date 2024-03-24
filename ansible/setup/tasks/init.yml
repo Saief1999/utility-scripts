@@ -1,10 +1,10 @@
 ---
-- name: check updates
+- name: Check updates
   pacman:
     update_cache: yes
     upgrade: yes
 
-- name: install window manager
+- name: Install window manager
   pacman:
     name:
       - xorg
@@ -30,7 +30,12 @@
     name: sddm
     enabled: yes
 
-- name: install main packages
+- name: Install coreutils
+  pacman:
+    name:
+      - coreutils
+
+- name: Install main packages
   pacman:
     name:
       - aws-cli-v2
