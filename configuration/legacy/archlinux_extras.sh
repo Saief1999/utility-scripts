@@ -26,19 +26,11 @@ xdg-user-dirs-update
 # install gui network manager
 yay -S network-manager-applet
 
-# Theming V1 (After installation, set it manually to light/dark mode)
-# yay -S matcha-gtk-theme
-# yay -S papirus-icon-theme
-
-# Theming V2
-yay -S materia-gtk-theme
-yay -S qogir-icon-theme
-
 # Add whisker menu ( instead of classic xfce application menu, needs manual setup in Settings > Panel > Items add Whisker Menu) then add the shortcut)
 yay -S xfce4-whiskermenu-plugin 
 
 # Install pulseaudio ( make sure to unmute with amixer or alsamixer afterwards )
-yay -S pulseaudio pavucontrol alsa-firmware alsa-utils
+yay -S pulseaudio pulseaudio-bluetooth pulseaudio-jack pavucontrol alsa-firmware alsa-utils
 
 # Install volman to auto mount disks with thunar ( also adds trash functionality ) -> needs reboot after installing
 yay -S thunar-volman gvfs
@@ -54,6 +46,14 @@ nerd-fonts-noto-sans-regular-complete noto-fonts-emoji noto-fonts-cjk \
 ttf-fira-mono otf-fira-sans 
 
 sudo ln -s /etc/fonts/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d
+
+# Theming V1 (After installation, set it manually to light/dark mode)
+# yay -S matcha-gtk-theme
+# yay -S papirus-icon-theme
+
+# Theming V2
+yay -S materia-gtk-theme
+yay -S qogir-icon-theme
 
 # # Setting up Extra Rofi Themes
 # git clone --depth=1 https://github.com/adi1090x/rofi.git

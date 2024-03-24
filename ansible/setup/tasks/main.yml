@@ -1,0 +1,12 @@
+---
+- name: Initial Setup
+  import_tasks: init.yml
+
+- name: Setting up Essentials
+  import_tasks: essentials.yml
+
+- name: Setting up Extras
+  import_tasks: extras.yml
+
+- name: Setting up Dotfiles
+  import_tasks: dotfiles.yml

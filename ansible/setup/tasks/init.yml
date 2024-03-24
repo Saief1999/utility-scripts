@@ -1,0 +1,88 @@
+---
+- name: check updates
+  pacman:
+    update_cache: yes
+    upgrade: yes
+
+- name: install window manager
+  pacman:
+    name:
+      - xorg
+
+- name: Configure window manager
+  ansible.builtin.shell:
+    cmd: localectl set-x11-keymap fr
+
+- name: Install XFCE desktop environment
+  pacman:
+    name:
+      - xfce4
+      - xfce4-goodies
+
+- name: Install SDDM display manager
+  pacman:
+    name:
+      - sddm
+
+- name: Enable SDDM display manager
+  ansible.builtin.service:
+    name: sddm
+    enabled: yes
+
+- name: install main packages
+  pacman:
+    name:
+      - aws-cli-v2
+      - bat
+      - btop
+      - calibre
+      - deluge-gtk
+      - dictd
+      - direnv
+      - discord
+      - docker
+      - docker-compose
+      - engrampa
+      - firefox-developer-edition
+      - gcolor2
+      - gimp
+      - github-cli
+      - gnu-netcat
+      - jdk11-openjdk
+      - jdk17-openjdk
+      - jdk8-openjdk
+      - jupyter-notebook
+      - kdenlive
+      - kubectl
+      - kitty
+      - lutris
+      - mitmproxy
+      - mousepad
+      - neofetch
+      - neovim
+      - nethogs
+      - nodejs
+      - obsidian
+      - pandoc
+      - pantheon-camera
+      - peek
+      - redshift
+      - rofi
+      - rsync
+      - speedtest-cli
+      - steam
+      - terraform
+      - texlive-basic
+      - texlive-latex
+      - texlive-lang
+      - texlive-fontsextra
+      - texlive-bibtexextra
+      - tldr
+      - translate-shell
+      - virtualbox
+      - virtualbox-host-modules-arch
+      - vlc
+      - xclip
+      - yarn
+      - yt-dlp
+    state: present

@@ -1,0 +1,52 @@
+---
+- name: Download Yay
+  ansible.builtin.shell:
+    cmd: git clone https://aur.archlinux.org/yay.git
+    chdir: "~{{ username }}"
+    creates: "~{{ username }}/yay"
+
+- name: Install Yay
+  ansible.builtin.shell:
+    cmd: makepkg -si yay/
+    chdir: "~{{ username }}"
+
+- name: Download XDG dirs
+  pacman:
+    name:
+      - xdg-user-dirs
+
+- name: Setup XDG dirs
+  ansible.builtin.shell:
+    cmd: xdg-user-dirs-update
+    creates: "~{{ username }}/Documents"
+
+- name: Install Network Applet
+  pacman:
+    name:
+      - network-manager-applet
+
+- name: Install Whisker Menu
+  pacman:
+    name:
+      - xfce4-whiskermenu-plugin
+
+- name: Install Audio Utilities
+  pacman:
+    name:
+      - pulseaudio
+      - pulseaudio-bluetooth
+      - pulseaudio-jack
+      - pavucontrol
+      - alsa-firmware
+      - alsa-utils
+
+- name: Install volman to auto mount disks with thunar
+  pacman:
+    name:
+      - thunar-volman
+      - gvfs
+
+- name: Install Archive utility for XFCE
+  pacman:
+    name:
+      - thunar-archive-plugin

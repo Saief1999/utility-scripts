@@ -1,0 +1,46 @@
+---
+- name: Install Themes
+  yay:
+    name:
+      - xdg-user-dirs
+      - qogir-icon-theme
+
+- name: Install fonts
+  yay:
+    name:
+      - ttf-dejavu
+      - ttf-liberation
+      - noto-fonts
+      - ttf-caladea
+      - ttf-carlito
+      - ttf-opensans
+      - ttf-impallari-cantora
+      - otf-overpass
+      - ttf-roboto
+      - tex-gyre-fonts
+      - ttf-ubuntu-font-family
+      - ttf-courier-prime
+      - ttf-gelasio-ib
+      - ttf-merriweather
+      - ttf-source-sans-pro-ibx
+      - ttf-signika
+      - nerd-fonts-noto-sans-regular-complete
+      - noto-fonts-emoji
+      - noto-fonts-cjk
+      - ttf-fira-mono
+      - otf-fira-sans
+
+- name: Install extra AUR packages
+  yay:
+    name:
+      - aws-session-manager-plugin
+      - datagrip
+      - drawio-desktop
+      - insomnia-bin
+      - nordvpn-bin
+      - onlyoffice-bin
+      - slack-desktop
+      - spotify
+      - stremio
+      - ventoy-bin
+      - visual-studio-code-bin

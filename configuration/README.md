@@ -23,7 +23,7 @@ First we need to boot from Live CD, it's containing a basic version of arch with
 
    - `timedatectl status` : get the current clock status (generally will be utc+0)
    - `timedatectl list-timezones` : list all timezones
-   - `timedatectl set-timezone Africa/Tunis` : Change timezone to Tunis
+   - `timedatectl set-timezone Europe/Berlin` : Change timezone to Tunis
 
 5. partition disks:
 
@@ -86,13 +86,13 @@ So to start of we do this
 
 5. Network
 
-   - in `/etc/hostname` add out machine hostname (e.g. `ideapad`)
+   - in `/etc/hostname` add out machine hostname (e.g. `lenovo`)
    - in `/etc/hosts` we add the basic network config
 
    - ```bash
       127.0.0.1 localhost
       ::1 localhost
-      127.0.1.1 ideapad.localdomain ideapad
+      127.0.1.1 lenovo.localdomain lenovo
       ```
 
 6. Basic packages
@@ -136,12 +136,6 @@ So to start of we do this
 
 1. login to our user
 
-2. Clone the utility script repo under our home
+2. **Enable Multilib Repo in archlinux** because some packages belong to it
 
-3. **Enable Multilib Repo in archlinux** because some packages belong to it
-
-4. Cd to the configuration dir and run `archlinux_init.sh`. And pray to god
-
-5. run `archlinux_extras.sh`
-
-6. run `archlinux_dotfiles.sh`
+3. Cd to the configuration dir and run `new/archlinux_init.sh`. And pray to god

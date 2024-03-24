@@ -1,0 +1,24 @@
+---
+- name: Dotfile config for Translate Shell
+  ansible.builtin.file:
+    src: "~{{username}}/{{dotfiles_path}}/.translate-shell"
+    dest: "~{{username}}/.translate-shell"
+    owner: "{{username}}"
+    group: "{{username}}"
+    state: link
+
+- name: Global System Dotfile config
+  ansible.builtin.file:
+    src: "~{{username}}/{{dotfiles_path}}/.system"
+    dest: "~{{username}}/.system"
+    owner: "{{username}}"
+    group: "{{username}}"
+    state: link
+
+- name: Dotfile config for Translate Shell for Kitty
+  ansible.builtin.file:
+    src: "~{{username}}/{{dotfiles_path}}/.kitty"
+    dest: "~{{username}}/.config/kitty/kitty.conf"
+    owner: "{{username}}"
+    group: "{{username}}"
+    state: link
