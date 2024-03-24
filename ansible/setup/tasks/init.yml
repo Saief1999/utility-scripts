@@ -30,10 +30,10 @@
     name: sddm
     enabled: yes
 
-- name: Install coreutils
+- name: Install Build utilities
   pacman:
     name:
-      - coreutils
+      - base-devel
 
 - name: Install main packages
   pacman:
